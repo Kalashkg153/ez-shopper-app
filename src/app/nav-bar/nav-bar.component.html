@@ -1,0 +1,38 @@
+<nav class="navbar ">
+    <div class="logo"><a routerLink="">EzShopper</a></div>
+    <div class="search-bar">
+        <input type="text" [(ngModel)]="searchText" placeholder="Search products...">
+        <button type="button" (click)="searchProducts()">Search</button>
+    </div>
+    <ul class="nav-links">
+        <li><a routerLink="">Home</a></li>
+        <li><a routerLink="shop">Shop</a></li>
+        <li><a routerLink="admin">Admin</a></li>
+        <li><a routerLink="contact-us">Contact</a></li>
+    </ul>
+    <div class="icons">
+        @if(!user){
+            <button class="btn mx-1"><a routerLink="register">Signup</a></button>
+        }
+        @else{
+            <!-- <button (click)="logout()" class="btn mx-1 text-light fs-5">Logout</button> -->
+            <div ngbDropdown class="d-inline-block">
+                <button type="button" class="btn btn-outline-primary text-light" id="dropdownBasic1" ngbDropdownToggle>
+                    <fa-icon class="logoutIcon" [icon]="faCircleUser" ></fa-icon>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem (click)="logout()" class="">Logout</button>
+                    <button ngbDropdownItem (click)="viewProfile()">Your Profile</button>
+                </div>
+            </div>
+        }
+        <button class="btn mx-1">
+            <a routerLink="cart">
+                <fa-icon class="" [icon]="faCartPlus"></fa-icon>
+                @if(cartItemsNumber){
+                    <span class="mx-1">[ {{cartItemsNumber}} ]</span>
+                }
+            </a>
+        </button>
+    </div>
+</nav>

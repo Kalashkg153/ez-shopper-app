@@ -1,0 +1,27 @@
+
+.carousel-section{
+    width: 100%;
+    background-color: #D1F8EF;
+}
+
+.banner-image{
+    width: 80%;
+}
+
+.carousel-section img{
+    width: 100%;
+    margin: 0 auto;
+}
+
+.section-header{
+    width: 90%;
+}
+
+.section-header h2{
+    font-weight: 550;
+    font-size: 34px;
+}
+
+.product-list{
+    width: 85%;
+}

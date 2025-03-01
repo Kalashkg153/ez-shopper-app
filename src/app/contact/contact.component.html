@@ -1,0 +1,42 @@
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Contact Us</h2>
+  
+    <div class="row">
+      <!-- Contact Form -->
+      <div class="col-md-6 message-form">
+        <div class="text-center">
+          <h4>Send Us a Message</h4>
+        </div>
+        <form (ngSubmit)="submitForm()">
+          <div class="mb-3">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" class="form-control" id="name"  name="name" placeholder="" required>
+          </div>
+  
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="email"  name="email" placeholder="example@email" required>
+          </div>
+  
+          <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea class="form-control" id="message" rows="7" name="message" required></textarea>
+          </div>
+  
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+      </div>
+  
+      <!-- Contact Details -->
+      <div class="col-md-6 contact-us">
+        <h2>Customer Support</h2>
+        <p class="fs-3">Email: <a href="mailto:support&#64;yourecommerce.com">support&#64;ezshopper.com</a></p>
+        <p class="fs-3">Phone: <a href="tel:+911234567890">+91 12345 67890</a></p>
+  
+        <h2>Follow Us</h2>
+        <a href="#" class="btn btn-outline-primary me-2"><i class="bi bi-facebook"></i> Facebook</a>
+        <a href="#" class="btn btn-outline-danger"><i class="bi bi-instagram"></i> Instagram</a>
+      </div>
+    </div>
+  </div>
+  

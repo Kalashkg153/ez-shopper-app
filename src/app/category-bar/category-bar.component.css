@@ -1,0 +1,30 @@
+
+.categories{
+    border-bottom: 2px solid #FFEB00;
+}
+
+.categoryNameHeader{
+    background-color: #000957;
+    padding: 1.1rem 5rem;
+    color: whitesmoke;
+}
+
+.categoryNames{
+    background-color: #577BC1;
+}
+
+.categoryName{
+    text-align: center;
+    padding: 1.1rem 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.categoryName a {
+    color: whitesmoke;
+}   
+
+.categoryName:hover{
+    background-color: #23486A;
+    color: whitesmoke;
+}

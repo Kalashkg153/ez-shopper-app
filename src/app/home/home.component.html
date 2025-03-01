@@ -1,0 +1,77 @@
+<main>
+    <CategoryBar />
+
+    <section class="carousel-section p-2">
+        <ngb-carousel
+        #carousel
+        [interval]="3400"
+        [pauseOnHover]="pauseOnHover"
+        [pauseOnFocus]="pauseOnFocus"
+        (slide)="onSlide($event)"
+        >
+            @for (img of images; track img; let i = $index) {
+                <ng-template ngbSlide>
+                    <a href="" target="_blank">
+                        <div class="banner-image mx-auto">
+                            <img [src]="img" alt="Banner image" />
+                        </div>
+                    </a>
+                </ng-template>
+            }
+        </ngb-carousel>
+    </section>
+
+
+    <section class="trending-products p-4">
+        <div class="section-header mx-auto p-3">
+            <h2 class="">Featured Products</h2>
+        </div>
+        @if(trendingProducts.length > 0){
+            <div class="product-list mx-auto">
+                <div class="row">
+                    @for(product of trendingProducts; track product.productId){
+                        <div class="col-6 col-xl">
+                            <ProductCard [product]="product" />
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        @else{
+            <div class="text-center fs-4">
+                Fetching Trending ProductS...
+            </div>
+            
+        }
+        
+        
+    </section>
+
+    <section class="latest-products p-4">
+        <div class="section-header mx-auto p-3">
+            <h2 class="">Latest Arrivals</h2>
+        </div>
+        @if(latestProducts.length > 0){
+            <div class="product-list mx-auto">
+                <div class="row">
+                    @for(product of latestProducts; track product.productId){
+                        <div class="col-6 col-xl">
+                            <ProductCard [product]="product" />
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        @else{
+            <div class="text-center fs-4">
+                Fetching Latest Products...
+            </div>
+        }
+        
+    </section>
+
+
+    <section class="deals-section">
+
+    </section>
+</main>

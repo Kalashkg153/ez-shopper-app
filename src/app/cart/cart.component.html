@@ -1,0 +1,46 @@
+<section class="cart-section p-4">
+    <div class="cart-items mx-auto p-3">
+        <div class="d-flex justify-content-between">
+            <div><h1 class="">Your Cart</h1></div>
+            @if(userCartItems && userCartItems.length > 0){
+                <div class="text-center">
+                    <button (click)="ProceedToBuy()" class="btn btn-warning btn-lg">Proceed to Buy ( {{userCartItems.length}} Items )</button>
+                </div>
+            }
+            <div class=""><h4>Subtotal : ₹ <span class="fs-3">{{cartTotalPrice}}.00</span></h4></div>
+        </div>
+        
+        @if(userCartItems && userCartItems.length > 0){
+            @for(item of userCartItems; track item.productId){
+                <div class="cart-item my-4 shadow d-flex">
+                    <div class="cart-item-image">
+                        <img [src]="item.productImage" alt="">
+                    </div>
+                    <div class="item-desc">
+                        <h2>{{item.productName}}</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, soluta.</p>
+                    </div>
+                    <div class="text-center item-price">
+                        <h3><span class="fs-4">₹</span> {{item.price}}.00</h3>
+                    </div>
+                    <div class="btns text-center">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button (click)="decreaseQuantityFromCart(item.productId)" type="button" class="btn btn-primary border-right px-3">-</button>
+                            <button type="button" class="btn btn-primary px-3">{{item.quantity}}</button>
+                            <button (click)="addItemToCart(item.productId)" type="button" class="btn btn-primary px-3">+</button>
+                        </div>
+                    </div>
+                    <div class="remove-btns text-center">
+                        <button (click)="removeItemFromCart(item.productId)" class="btn btn-danger">Remove</button>
+                    </div>
+                </div>
+            }
+        }
+        @else{
+            <div class="w-100 text-center border p-5 rounded">
+                <h4>No items to show in the Cart.  Please add Items to your Cart</h4>
+            </div>
+        }
+        
+    </div>
+</section>

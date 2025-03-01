@@ -1,0 +1,12 @@
+<section class="categories">
+    <div class="d-flex">
+        <div class="categoryNameHeader">
+            Categories
+        </div>
+        <div class="categoryNames d-flex justify-content-around flex-fill">
+            <div class="categoryName" *ngFor="let category of categories">
+                <a [routerLink]="['/category', category.name]">{{category.name}}</a>
+            </div>
+        </div>
+    </div>
+</section>

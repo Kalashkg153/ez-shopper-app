@@ -1,0 +1,17 @@
+
+<div class="card">
+    <a [routerLink]="['/product-details', product.productId]">
+        <img [src]="product.productImageData" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{product.productTitle}}</h5>
+            <div class="d-flex justify-content-center">
+                <span class="">₹</span>
+                @if(product.productDiscountPercentage){
+                    <div class="card-text fs-6 fw-bold">{{product.productDiscountedPrice}}<span class="mx-1">{{product.productDiscountPercentage}}% OFF</span></div>
+                }
+                <div class="card-text" [ngClass]="{ 'text-decoration-line-through' : product.productDiscountPercentage }"><span></span>{{product.productPrice}}</div>
+            </div>
+        </div>
+    </a>
+    
+</div>

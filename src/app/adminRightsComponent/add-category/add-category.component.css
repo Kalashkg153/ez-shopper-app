@@ -1,0 +1,31 @@
+
+
+.add-category-section{
+    border: 2px solid grey;
+    border-radius: 5px;
+    width: 70%;
+}
+
+.all-category-section{
+    border: 2px solid grey;
+    border-radius: 5px;
+    width: 70%;
+}
+
+.category-image{
+    width: 25%;
+}
+
+.category-image img{
+    width: 100px;
+    height: 100px;
+}
+
+.category-name{
+    width: 35%;
+}
+
+.btns{
+    width: 40%;
+
+}

@@ -1,0 +1,77 @@
+<section class="register-section">
+    <div class="d-flex register-container mx-auto">
+        <div class="image-section">
+            <img src="images/registerImage.jpg" alt="">
+        </div>
+        <div class="registerForm-section text-center">
+            <h1>Create a Account</h1>
+            <form class="register-form" [formGroup]="registerForm" (ngSubmit)="userRegister()">
+                <div class="form-floating my-3">
+                    <input formControlName="email" type="email" class="form-control" placeholder="name@example.com">
+                    <label for="floatingInput">Email Address</label>
+                </div>
+                
+                <div class="row">
+                    <div class="col-7 col-lg-8">
+                        <div class="form-floating my-3">
+                            <input formControlName="fullName" type="email" class="form-control" placeholder="name@example.com">
+                            <label for="floatingInput">Full Name</label>
+                        </div>
+                    </div>
+                    <div class="col-5 col-lg-4">
+                        <div class="form-floating my-3">
+                            <input formControlName="contact" type="email" class="form-control" placeholder="name@example.com">
+                            <label for="floatingInput">Your Contact</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-7 col-lg-8">
+                        <div class="form-floating my-3">
+                            <input formControlName="address" type="email" class="form-control" placeholder="name@example.com">
+                            <label for="floatingInput">Full Address</label>
+                        </div>
+                    </div>
+                    <div class="col-5 col-lg-4">
+                        <div class="form-floating my-3">
+                            <input formControlName="pincode" type="email" class="form-control" placeholder="name@example.com">
+                            <label for="floatingInput">Pincode</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating my-3">
+                            <input formControlName="password" type="password" class="form-control" placeholder="Password">
+                            <label for="floatingPassword">Password</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating my-3">
+                            <input [formControl]="confirmPassword" (input)="onConfirmPasswordChanged()" type="password" class="form-control" placeholder="Password">
+                            <label for="floatingPassword">Confirm Password</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-danger" *ngIf="passwordError">
+                    {{passwordError}}
+                </div>
+
+
+                <div class="registerbtn mt-5">
+                    <button type="submit" class="btn btn-lg">Create Account</button>
+                </div>
+
+                <div class="mt-5 border-top border-2 border-secondary py-3 px-2 other-links">
+                    <div class="mt-2 fs-4">
+                        <p>Already have a Account ? <a routerLink="/login">Login Here</a></p>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</section>

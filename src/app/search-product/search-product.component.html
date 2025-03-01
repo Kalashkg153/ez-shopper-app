@@ -1,0 +1,24 @@
+<section class="searched-products p-4">
+    <div class="section-header mx-auto p-3">
+        <h2 class="">Searched Products</h2>
+    </div>
+    @if(searchedproducts.length > 0){
+        <div class="product-list mx-auto">
+            <div class="row">
+                @for(product of searchedproducts; track product.productId){
+                    <div class="col-6 col-xl">
+                        <ProductCard [product]="product" />
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    @else{
+        <div class="text-center fs-4">
+            Loading Product...
+        </div>
+        
+    }
+    
+    
+</section>

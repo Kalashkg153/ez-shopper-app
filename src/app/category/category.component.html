@@ -1,0 +1,16 @@
+<section class="category-section p-4 mt-5">
+    <div class="section-header">
+        <h1>{{categoryName}}</h1>
+    </div>
+    <div class="category-products">
+        <div class="product-list mx-auto">
+            <div class="row">
+                @for(product of categoryProducts; track product.productId){
+                    <div class="col-6 col-xl">
+                        <ProductCard [product]="product" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

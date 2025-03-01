@@ -1,0 +1,82 @@
+
+<div class="product-container d-flex justify-content-center p-2">
+    <div  *ngIf="product" class="d-flex product">
+        <div class="product-image">
+            <img [src]="product.productImageData" alt="Product Image">
+        </div>
+        <div class="product-desc py-4 px-5">
+            <h1>{{product.productTitle}}</h1>
+            <h3 class="text-wrap">{{product.productDescription}}</h3>
+
+            @if(product.productDiscountPercentage){
+                <div class="row product-spec mt-4">
+                    <div class="col col-lg-3"><h4 class="fs-2"><span>₹</span>{{product.productDiscountedPrice}}</h4></div>
+                    <div class="col fs-5 pt-2 col-lg-5">Inclusive of all taxes</div>
+                    <div class="col col-lg-3 py-1 rounded text-center bg-danger text-light fw-bold">-{{product.productDiscountPercentage}}% OFF</div>
+                </div>
+            }
+            
+            <div class="row product-spec my-3"> 
+                <div class="col col-lg-4"><h5 class="fs-3" [ngClass]="{ 'text-decoration-line-through' : product.productDiscountPercentage}"><span>₹</span>{{product.productPrice}}</h5></div>
+                <div *ngIf="product.productDiscountPercentage" class="col">Limited Time Deal</div>
+            </div>
+
+            <div class="row product-spec">
+                <div class="col col-lg-3 text-center">
+                    @if(product.productStock){
+                        <div class="text-light bg-success rounded">Instock</div>
+                    }
+                    @else{
+                        <h5 class="bg-danger text-light">Out of Stock</h5>
+                    }
+                </div>
+                <div class="col col-lg-9 text-center animated-stock">{{product.productStock}} Pieces Left! Hurry</div>
+            </div>
+            <div class="row product-spec">
+                <div class="col">Product Category : {{product.productCategory}}</div>
+            </div>
+
+            <div class="row product-spec">
+                <div class="col">Customer Rating : {{product.productRating}}<fa-icon class="mx-1 text-warning" [icon]="faStar"></fa-icon></div>
+            </div>
+
+            <div class="row mt-1">
+                <div class="col fs-5">
+                    *Return Policy : 7 days Replacement or Return*
+                </div>
+            </div>
+
+            <div class="row text-center fs-1 my-2">
+                <div class="col text-success"><fa-icon [icon]="faMoneyBillWave"></fa-icon></div>
+                <div class="col"><fa-icon [icon]="faArrowRotateLeft"></fa-icon></div>
+                <div class="col text-primary"><fa-icon [icon]="faTruckFast"></fa-icon></div>
+            </div>
+            <div class="row text-center">
+                <div class="col">Cash/Pay on Delivery</div>
+                <div class="col">Return/Exchange Available</div>
+                <div class="col">Free Shipping</div>
+            </div>
+
+            <div class="row text-center fs-1 my-2">
+                <div class="col text-primary"><fa-icon [icon]="faTruckMoving"></fa-icon></div>
+                <div class="col"><fa-icon [icon]="faAward"></fa-icon></div>
+                <div class="col text-success"><fa-icon [icon]="faShieldHalved"></fa-icon></div>
+            </div>
+            <div class="row text-center">
+                <div class="col">EzShopper Delivered</div>
+                <div class="col">Top Brand</div>
+                <div class="col">Secure Transaction</div>
+            </div>
+
+
+            <div class="product-btns d-grid gap-2 mx-auto col-6">
+                <button (click)="addToCart()" class="btn btn-warning btn-lg">Add to Cart</button>
+                <button class="btn btn-success btn-lg">Buy Now</button>
+            </div>
+
+            <div class="row text-center mt-3 fs-5">
+                <a href=""><fa-icon [icon]="faArrowLeft"></fa-icon>Back to shop</a>
+            </div>
+        </div>
+    </div>
+</div>

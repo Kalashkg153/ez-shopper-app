@@ -1,0 +1,110 @@
+<section class="p-5">
+    <div class="d-flex w-75 mx-auto">
+        <div class="address-section mx-2 p-4">
+            <h4>Shipping to {{userDetails.fullName}}</h4>
+            <div class="mt-4">
+                <div class="form-check">
+                    <input [formControl]="useSavedAddress" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Use Saved Address
+                    </label>
+                </div>
+                <div class="my-3">
+                    <label class="form-label">Full Address</label>
+                    <input type="text" class="form-control"  [value]="userDetails.address" disabled>
+                </div>
+                <div class="my-3">
+                    <label class="form-label">Pincode</label>
+                    <input type="text" class="form-control" [value]="userDetails.pincode" disabled>
+                </div>
+
+            </div>
+            <div class="mt-4">
+                <div class="form-check">
+                    <input [formControl]="useDiffrentAddress" class="form-check-input" (click)="collapse.toggle()"
+                         [attr.aria-expanded]="!isCollapse" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Use Different Address
+                    </label>
+                </div>
+
+                <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapse">
+                    <div class="my-3">
+                        <label class="form-label">Full Address</label>
+                        <input type="text" class="form-control" [formControl]="deliveryAddress">
+                    </div>
+                    <div class="my-3">
+                        <label class="form-label">Pincode</label>
+                        <input type="text" class="form-control" [formControl]="pincode">
+                    </div>
+                </div>
+                @if(useDiffrentAddress.value){
+                    
+                }
+            </div>
+        </div>
+        <div class="pay-section mx-2 p-4">
+            <div class="row">
+                <div class="col"><p>Total Price : </p></div>
+                <div class="col"><p>{{userCart.totalPrice}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Delivery Fee :</p></div>
+                <div class="col"><p>0.00</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Total Items : </p></div>
+                <div class="col"><p>{{userCart.items.length}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Tax : </p></div>
+                <div class="col"><p>Inclusive</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Products</p></div>
+                <div class="col">
+                    @for(item of userCart.items; track item.productId){
+                        <div><p>{{item.productName }} (Rs. {{item.price}}.00)</p></div>
+                    }
+                </div>
+            </div>
+
+            <div class="promo">
+                <span>HAVE A PROMO CODE?</span>
+                <form class="form">
+                  <input type="text" placeholder="Enter a Promo Code" class="input_field">
+                  <button>Apply</button>
+                </form>
+            </div>
+
+            <hr>
+
+            <div class="payment-type p-4 rounded">
+                <div class="my-3">
+                    <label class="form-label">Select Payment Type</label>
+                    <select type="text" class="form-control" [formControl]="paymentType" >
+                        <option value="">--Select--</option>
+                        <option value="COD">Cash On Delivery</option>
+                        <option value="ONLINE">Online Payment</option>
+                    </select>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button class="btn btn-lg btn-warning" (click)="PlaceOrder()" type="button">Pay & Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title text-success">Your Order has been Place Successfully</h4>
+	</div>
+	<div class="modal-body">
+		<p>You will receive your Order within 3 Days</p>
+	</div>
+	<div class="modal-footer d-flex justify-content-evenly">
+		<button class="btn btn-primary"><a  routerLink="">Go o Home Page</a></button>
+        <button class="btn btn-outline-dark"><a  routerLink="/my-orders">View Orders</a></button>
+	</div>
+</ng-template>
