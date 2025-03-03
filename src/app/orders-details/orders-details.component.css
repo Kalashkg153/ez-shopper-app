@@ -1,0 +1,43 @@
+
+.order-items{
+    width: 95%;
+}
+
+.order-item{
+    width: 100%;
+}
+
+.order-item-detail{
+    padding: 5px;
+    width: 12.85%;
+    padding-top: 25px; 
+}
+
+.cancel-btns{
+    width: 10%;
+    padding-top: 1rem;     
+}
+
+thead {
+    background-color: #1A237E; /* Dark Navy Blue */
+    color: white; /* White text for contrast */
+    text-align: left;
+  }
+  
+  th {
+    text-align: center;
+    width: 12.85%;
+    padding: 10px;
+    border: 1px solid #ddd; /* Light border */
+    font-weight: bold;
+  }
+
+  th:last-of-type{
+    width: 10%;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  

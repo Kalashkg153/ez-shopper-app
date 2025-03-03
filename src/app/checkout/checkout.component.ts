@@ -7,6 +7,7 @@ import { ToastService } from '../services/toast.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, RouterModule } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { UserApiService } from '../services/user-api.service';
 
 @Component({
   selector: 'app-checkout',
@@ -29,7 +30,8 @@ export class CheckoutComponent {
   pincode = new FormControl('');
   paymentType = new FormControl('');
 
-  constructor(private backend : BackendService, private datepipe : DatePipe, private modalService : NgbModal, private message : ToastService, private auth : AuthService, private fb : FormBuilder){
+  constructor(private backend : BackendService, private datepipe : DatePipe, private userApiService : UserApiService,
+    private modalService : NgbModal, private message : ToastService, private auth : AuthService, private fb : FormBuilder){
     this.orderForm = this.fb.group({
         userId : ['', ],
         productIds : [[]],
@@ -43,7 +45,7 @@ export class CheckoutComponent {
 
   ngOnInit() : void{
     let username = sessionStorage.getItem("username");
-    this.backend.getUserDetails(username).subscribe({
+    this.userApiService.getUserDetails(username).subscribe({
       next : (res) => {
         this.userDetails = res;
         this.userCart = res.cart
@@ -63,15 +65,6 @@ export class CheckoutComponent {
         this.useSavedAddress.enable();
       }
     });
-    // this.useSavedAddress.valueChanges.subscribe(value => {
-    //   if (value) {
-    //     this.isCollapse = true;
-    //     this.useDiffrentAddress.disable();
-    //   } else {
-    //     this.isCollapse = false;
-    //     this.useDiffrentAddress.enable();
-    //   }
-    // });
   }
 
 

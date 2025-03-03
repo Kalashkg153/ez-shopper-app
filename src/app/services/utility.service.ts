@@ -10,6 +10,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class UtilityService {
 
+
+  public loaderSubject = new BehaviorSubject<boolean>(false);
+  loader$ = this.loaderSubject.asObservable();
+
   constructor() { }
 
 

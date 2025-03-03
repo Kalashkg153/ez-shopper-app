@@ -5,13 +5,15 @@ import { BackendService } from '../services/backend.service';
 import { ToastService } from '../services/toast.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ButtonSpinnerComponent } from '../button-spinner/button-spinner.component';
+import { UserApiService } from '../services/user-api.service';
 
 
 
 @Component({
   selector: 'app-register-page',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, RouterModule, CommonModule, ButtonSpinnerComponent],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.css'
 })
@@ -21,7 +23,7 @@ export class RegisterPageComponent {
   confirmPassword  = new FormControl('');
   passwordError : string = "";
   
-    constructor(private fb : FormBuilder, private backend : BackendService, 
+    constructor(private fb : FormBuilder, private backend : BackendService, private userApiService : UserApiService,
       private router : Router, private message: ToastService){
       this.registerForm = this.fb.group({
         email : ['', [Validators.required, Validators.email]],
@@ -39,7 +41,7 @@ export class RegisterPageComponent {
 
     userRegister(){
       if(this.registerForm.valid){
-        this.backend.registerUser(this.registerForm.value).subscribe({
+        this.userApiService.registerUser(this.registerForm.value).subscribe({
           next : (res) => {
             if(res.includes("Created ")){
               this.message.SucessMessage(res);

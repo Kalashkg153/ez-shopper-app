@@ -15,10 +15,23 @@
                     <label for="floatingPassword">Password</label>
                 </div>
 
-
-                <div class="loginbtn">
-                    <button type="submit" class="btn btn-lg">Login</button>
-                </div>
+                @if(isLoading){
+                    <div class="loginbtn">
+                        <button type="submit" class="btn btn-lg">
+                            <div class="d-flex justify-content-center">
+                                <div class="me-2">Logging in</div>
+                                <div><Spinner /></div>
+                            </div>
+                            
+                        </button>
+                    </div>
+                }
+                @else{
+                    <div class="loginbtn">
+                        <button type="submit" class="btn btn-lg">Login</button>
+                    </div>
+                }
+                
 
                 <div class="mt-5 border-top border-2 border-secondary py-3 px-2 other-links">
                     <div class="fs-5">

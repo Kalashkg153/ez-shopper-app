@@ -5,6 +5,7 @@ import { BackendService } from '../services/backend.service';
 import { ToastService } from '../services/toast.service';
 import { forkJoin, map, switchMap } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
+import { CartApiService } from '../services/cart-api.service';
 
 @Component({
   selector: 'app-cart',
@@ -25,7 +26,7 @@ export class CartComponent implements OnInit {
     quantity : 1,
     price : 0.0
   }
-  constructor(private cartService : CartService, private message : ToastService,
+  constructor(private cartService : CartService, private message : ToastService, private cartApiService : CartApiService,
     private backend : BackendService, private auth : AuthService, private router : Router){
 
   }
@@ -45,7 +46,7 @@ export class CartComponent implements OnInit {
 
   decreaseQuantityFromCart(productId : any){
     this.cartItem.productId = productId;
-    this.backend.decreaseQuantityFromCart(this.cartItem).subscribe({
+    this.cartApiService.decreaseQuantityFromCart(this.cartItem).subscribe({
       next : (res) => {
         console.log(res);
         if(res){
@@ -60,7 +61,7 @@ export class CartComponent implements OnInit {
 
   removeItemFromCart(productId : any){
     this.cartItem.productId = productId;
-    this.backend.removeItemFromCart(this.cartItem).subscribe({
+    this.cartApiService.removeItemFromCart(this.cartItem).subscribe({
       next : (res) => {
         console.log(res);
         if(res){
@@ -75,7 +76,7 @@ export class CartComponent implements OnInit {
 
   addItemToCart(productId : any){
     this.cartItem.productId = productId;
-    this.backend.addItemToCart(this.cartItem).subscribe({
+    this.cartApiService.addItemToCart(this.cartItem).subscribe({
       next : (res) => {
         console.log(res);
         if(res){

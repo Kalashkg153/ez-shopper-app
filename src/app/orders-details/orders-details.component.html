@@ -1,0 +1,63 @@
+<section class="order-section p-4">
+    <div class="order-items mx-auto p-3">
+        <div class="">
+            <div><h1 class="">Current Orders</h1></div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Order Id</th>
+                    <th>Ordered Date</th>
+                    <th>Products</th>
+                    <th>Total Amout</th>
+                    <th>Delivery Address</th>
+                    <th>Mode of Payment</th>
+                    <th>Order Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+        @if(orders && orders.length > 0){
+            @for(order of orders; track order.id){
+                <div class="order-item my-4 p-3 shadow d-flex">
+                    <div class="order-item-detail text-center">
+                        {{order.id}}
+                    </div>
+                    <div class="order-item-detail text-center">
+                        <p>{{order.orderedDate}}</p>
+                    </div>
+                    <div class="products order-item-detail text-center">
+                        @for(productId of order.productIds; track productId){
+                            <div>
+                                {{productId}} <span><a href="">See Details</a></span>
+                            </div>
+                        }
+                    </div>
+                    <div class="text-center order-item-detail">
+                        <h5><span class="fs-4">₹</span> {{order.totalPrice}}.00</h5>
+                    </div>
+                    <div class="order-item-detail text-center">
+                        <p>{{order.deliveryAddress}}</p>
+                    </div>
+                    <div class="order-item-detail text-center">
+                        @if(order.paymentType == "COD"){
+                            Cash on Delivery
+                        }
+                        @else{
+                            Online Payment
+                        }
+                        
+                    </div>
+                    <div class="order-item-detail text-center">
+                        <p>{{order.orderStatus}}</p>
+                    </div>
+                    <div class="cancel-btns text-center">
+                        <button (click)="CancelOrder(order.id)" class="btn btn-danger">Cancel Order</button>
+                    </div>
+                </div>
+            }
+        }
+        
+        
+    </div>
+</section>

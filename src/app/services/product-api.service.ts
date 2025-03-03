@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, map, catchError, throwError } from 'rxjs';
 import { UtilityService } from './utility.service';
+import { environment as env } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +17,13 @@ export class ProductApiService {
       let headers = new HttpHeaders({
         'Authorization' : "Bearer " + token   
       })
-      return this.http.post<string>("http://localhost:8080/admin/saveProduct", productData, {headers, responseType: 'text' as 'json'}).pipe(
+      return this.http.post<string>( env.productUrls.addNewProduct , productData, {headers, responseType: 'text' as 'json'}).pipe(
         // catchError(this.handleError)
       )
     }
   
     getTrendingProducts() : Observable<any> {
-      return this.http.get<any[]>("http://localhost:8080/trendingProducts").pipe(
+      return this.http.get<any[]>(env.productUrls.trendingProducts).pipe(
         map(products => {
           return products.map(product => {
             if (product.imageData) {
@@ -37,7 +38,7 @@ export class ProductApiService {
     }
   
     getLatestProducts() : Observable<any> {
-      return this.http.get<any[]>("http://localhost:8080/latestProducts").pipe(
+      return this.http.get<any[]>(env.productUrls.latestProducts).pipe(
         map(products => {
           return products.map(product => {
             if (product.imageData) {
@@ -52,7 +53,7 @@ export class ProductApiService {
     }
   
     getAllProducts() : Observable<any> {
-      return this.http.get<any[]>("http://localhost:8080/getAllProducts").pipe(
+      return this.http.get<any[]>(env.productUrls.allProducts).pipe(
         map(products => {
           return products.map(product => {
             if (product.imageData) {
@@ -68,7 +69,7 @@ export class ProductApiService {
   
     getProductByCategory(category : string){
   
-      return this.http.get<any[]>("http://localhost:8080/getProductsByCategory/" + category).pipe(
+      return this.http.get<any[]>(env.productUrls.productByCategory + category).pipe(
         map(products => {
           return products.map(product => {
             if (product.imageData) {
@@ -84,7 +85,7 @@ export class ProductApiService {
   
     getProductById(productId : string){
   
-      return this.http.get<any>("http://localhost:8080/getProductById/" + productId).pipe(
+      return this.http.get<any>(env.productUrls.productById + productId).pipe(
         map(product => {
           if(product.imageData){
             let imageType = this.utility.getImageType(product.imageData);
@@ -97,7 +98,7 @@ export class ProductApiService {
     }
   
     getProductImage(productId : string){
-      return this.http.get<any>("http://localhost:8080/productImageData/" + productId, { responseType : 'text' as 'json' } ).pipe(
+      return this.http.get<any>(env.productUrls.productImage + productId, { responseType : 'text' as 'json' } ).pipe(
         catchError(this.handleError)
       )
     }

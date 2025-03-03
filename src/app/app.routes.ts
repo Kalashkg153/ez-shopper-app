@@ -16,6 +16,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ProfileComponent } from './profile/profile.component';
+import { OrdersDetailsComponent } from './orders-details/orders-details.component';
 
 export const routes: Routes = [
     {
@@ -43,6 +44,9 @@ export const routes: Routes = [
                 path : "add-category", component : AddCategoryComponent
             }
         ]
+    },
+    {
+        path : "my-orders/:username" , component : OrdersDetailsComponent
     },
     {
         path : "cart" , component : CartComponent

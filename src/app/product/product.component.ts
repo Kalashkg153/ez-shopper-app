@@ -10,11 +10,13 @@ import { AuthService } from '../services/auth.service';
 import { ToastService } from '../services/toast.service';
 import { CartService } from '../services/cart.service';
 import { ProductApiService } from '../services/product-api.service';
+import { ButtonSpinnerComponent } from '../button-spinner/button-spinner.component';
+import { CartApiService } from '../services/cart-api.service';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CommonModule, RouterModule, FontAwesomeModule],
+  imports: [CommonModule, RouterModule, FontAwesomeModule, ButtonSpinnerComponent],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
@@ -28,6 +30,7 @@ export class ProductComponent {
   faTruckMoving = faTruckMoving;
   faAward = faAward;
   faStar = faStar;
+  isLoading : boolean = false;
   productId : string = "";
   product !: Product;
   cartItem = {
@@ -40,7 +43,7 @@ export class ProductComponent {
   }
 
   constructor(private backend : BackendService, private productApi : ProductApiService, private authService : AuthService, private message : ToastService,
-    private router : Router, private cartService : CartService, private route : ActivatedRoute){}
+    private router : Router, private cartService : CartService, private cartApiService : CartApiService, private route : ActivatedRoute){}
   
   ngOnInit() : void {
     let productId = this.route.snapshot.params['id'];
@@ -71,13 +74,15 @@ export class ProductComponent {
       return;
     }
 
+    this.isLoading = true;
+
     this.cartItem.productId = this.productId;
     this.cartItem.productName = this.product.productTitle;
     this.cartItem.price = this.product.productDiscountedPrice;
 
-    this.backend.addItemToCart(this.cartItem).subscribe({
+    this.cartApiService.addItemToCart(this.cartItem).subscribe({
       next : (res) => {
-        console.log(res);
+        this.isLoading = false;
         if(res){
           this.message.SucessMessage("Great choice! Your item has been added to the Cart");
           this.cartService.updateCart(this.cartItem.userName);
@@ -87,6 +92,7 @@ export class ProductComponent {
         }
       },  
       error : (err) => {
+        this.isLoading = false;
         console.log(err);
       }
     })

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { BackendService } from './backend.service';
+import { UserApiService } from './user-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class CartService {
     cart$ = this.cartSubject.asObservable();
     cartItem$ = this.cartItemSubject.asObservable(); 
   
-    constructor(private backend : BackendService) { }
+    constructor(private userApiService : UserApiService) { }
   
   
     updateCartItem(num : any){
@@ -25,7 +26,7 @@ export class CartService {
         this.cartSubject.next({});
         this.updateCartItem(0);
       }
-      this.backend.getUserDetails(userName).subscribe({
+      this.userApiService.getUserDetails(userName).subscribe({
         next : (res : any) => {
           console.log(res);
           console.log(res.cart);

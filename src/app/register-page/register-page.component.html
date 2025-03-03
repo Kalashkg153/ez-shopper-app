@@ -61,9 +61,24 @@
                 </div>
 
 
-                <div class="registerbtn mt-5">
-                    <button type="submit" class="btn btn-lg">Create Account</button>
-                </div>
+                @if(){
+                    <div class="registerbtn mt-5">
+                        <button type="submit" class="btn btn-lg">
+                            <div class="d-flex justify-content-center">
+                                <div class="me-2">Signing Up</div>
+                                <div><Spinner /></div>
+                            </div>
+                        </button>
+                    </div>
+                    
+                }
+                @else{
+                    <div class="registerbtn mt-5">
+                        <button type="submit" class="btn btn-lg">Create Account</button>
+                    </div>
+                }
+
+                
 
                 <div class="mt-5 border-top border-2 border-secondary py-3 px-2 other-links">
                     <div class="mt-2 fs-4">

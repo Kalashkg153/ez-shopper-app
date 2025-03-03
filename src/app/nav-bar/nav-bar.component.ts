@@ -59,4 +59,8 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(["profile", this.user?.username]);
   }
 
+  viewOrders(){
+    this.router.navigate(["my-orders", this.user?.username]);
+  }
+
 }

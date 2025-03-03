@@ -7,19 +7,22 @@ import { ToastService } from '../services/toast.service';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { ButtonSpinnerComponent } from '../button-spinner/button-spinner.component';
+import { UserApiService } from '../services/user-api.service';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [FormsModule, ReactiveFormsModule, RouterModule, ButtonSpinnerComponent],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
 })
 export class LoginPageComponent {
 
   loginForm !: FormGroup;
+  isLoading : boolean = false;
 
-  constructor(private fb : FormBuilder, private backend : BackendService, 
+  constructor(private fb : FormBuilder, private backend : BackendService, private userApiService : UserApiService,
     private router : Router, private message: ToastService, private authService : AuthService){
     this.loginForm = this.fb.group({
       username : ['', [Validators.required, Validators.email]],
@@ -33,14 +36,11 @@ export class LoginPageComponent {
 
 
   userLogin(){
-    console.log(this.loginForm);
-    console.log(this.loginForm.valid);
     if(this.loginForm.valid){
-      console.log("called");
-      this.backend.loginUser(this.loginForm.value).subscribe({
+      this.isLoading = true;
+      this.userApiService.loginUser(this.loginForm.value).subscribe({
         next : (res) => {
-          console.log(res);
-          
+          this.isLoading = false;
           if(res.token != null){
             this.authService.setLoginDetails(res);
             this.message.SucessMessage(res.message);
@@ -51,6 +51,7 @@ export class LoginPageComponent {
           }
         },
         error : (err) => {
+          this.isLoading = false;
           console.log(err);
           this.message.ErrorMessage(err);
         }

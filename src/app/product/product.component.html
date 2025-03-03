@@ -70,7 +70,18 @@
 
 
             <div class="product-btns d-grid gap-2 mx-auto col-6">
-                <button (click)="addToCart()" class="btn btn-warning btn-lg">Add to Cart</button>
+                @if(isLoading){
+                    <button (click)="addToCart()" class="btn btn-warning btn-lg">
+                        <div class="d-flex justify-content-center">
+                            <div class="me-2">Adding to Cart</div>
+                            <div><Spinner /></div>
+                        </div>
+                    </button>
+                }
+                @else{
+                    <button (click)="addToCart()" class="btn btn-warning btn-lg">Add to Cart</button>
+                }
+                
                 <button class="btn btn-success btn-lg">Buy Now</button>
             </div>
 

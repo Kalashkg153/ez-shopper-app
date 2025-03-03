@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { CartService } from '../services/cart.service';
 import { ToastService } from '../services/toast.service';
 import { BackendService } from '../services/backend.service';
+import { UserApiService } from '../services/user-api.service';
 
 @Component({
   selector: 'app-profile',
@@ -24,7 +25,8 @@ export class ProfileComponent {
   userId : any;
   username : any;
 
-  constructor(private modalService : NgbModal, private backend : BackendService, private fb: FormBuilder, private router : Router, private cartService : CartService, 
+  constructor(private modalService : NgbModal, private backend : BackendService, private userApiService : UserApiService,
+    private fb: FormBuilder, private router : Router, private cartService : CartService, 
     private message : ToastService, private route : ActivatedRoute, private authService : AuthService){
     this.profileForm = this.fb.group({
       fullName: ['', Validators.required],
@@ -49,7 +51,7 @@ export class ProfileComponent {
   }
 
   getUserDetails(username : any){
-    this.backend.getUserDetails(username).subscribe({
+    this.userApiService.getUserDetails(username).subscribe({
       next : (res) => {
         console.log(res);
         this.profileForm.patchValue({
@@ -70,7 +72,7 @@ export class ProfileComponent {
   onSubmit(): void {
     console.log(this.profileForm.valid);
     if (this.profileForm.valid) {
-      this.backend.updateProfile(this.profileForm.value, this.userId ).subscribe({
+      this.userApiService.updateProfile(this.profileForm.value, this.userId ).subscribe({
         next : (res : any) => {
           console.log(res);
           this.message.SucessMessage(res);
@@ -88,7 +90,7 @@ export class ProfileComponent {
 
   onPasswordFormSubmit() : void {
     if (this.updatePasswordForm.valid) {
-      this.backend.updateUserProfilePassword(this.updatePasswordForm.value, this.userId ).subscribe({
+      this.userApiService.updateUserProfilePassword(this.updatePasswordForm.value, this.userId ).subscribe({
         next : (res : any) => {
           console.log(res);
           this.message.SucessMessage(res);

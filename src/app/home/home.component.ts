@@ -43,7 +43,8 @@ export class HomeComponent {
   latestProducts : Product[] = [];
   date: Date | undefined;
 
-  constructor(private backend : BackendService, private productApi : ProductApiService, private cartService : CartService, private auth : AuthService){
+  constructor(private backend : BackendService, private productApi : ProductApiService, private utility : UtilityService,
+    private cartService : CartService, private auth : AuthService){
   }
 
   ngOnInit() : void{
@@ -81,8 +82,10 @@ export class HomeComponent {
 	}
 
   getTrendingProducts(){
+    this.utility.loaderSubject.next(true);
     this.productApi.getTrendingProducts().subscribe({
       next : (res : any[]) => {
+        this.utility.loaderSubject.next(false);
         console.log(res);
         res.map(product => {
           let trendingProduct = new Product(product);
@@ -91,6 +94,7 @@ export class HomeComponent {
       },
       error : (err) => {
         console.log(err);
+        this.utility.loaderSubject.next(false);
       }
     });
   }
@@ -109,6 +113,7 @@ export class HomeComponent {
   // }
 
   getLatestProducts(){
+    this.utility.loaderSubject.next(true);
     this.productApi.getLatestProducts().subscribe({
       next : (res : any[]) => {
         res.map(product => {
