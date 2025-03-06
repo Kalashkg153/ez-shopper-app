@@ -13,5 +13,13 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class AdminComponent {
 
+
+  constructor(private router : Router){}
+
+  ngOnInit() : void {
+    alert("You must Logged in as a Administrator for these Services");
+
+    this.router.navigateByUrl("admin/add-product");    
+  }
   
 }

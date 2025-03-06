@@ -40,6 +40,7 @@ export class LoginPageComponent {
       this.isLoading = true;
       this.userApiService.loginUser(this.loginForm.value).subscribe({
         next : (res) => {
+          console.log(res);
           this.isLoading = false;
           if(res.token != null){
             this.authService.setLoginDetails(res);
@@ -53,7 +54,7 @@ export class LoginPageComponent {
         error : (err) => {
           this.isLoading = false;
           console.log(err);
-          this.message.ErrorMessage(err);
+          this.message.ErrorMessage(err.error);
         }
       })
     }

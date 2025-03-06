@@ -22,8 +22,7 @@ export class BackendService {
           }
           return category;
         });
-      }),
-      catchError(this.handleError)
+      })
     )
   }
 
@@ -33,9 +32,7 @@ export class BackendService {
     let headers = new HttpHeaders({
       'Authorization' : "Bearer " + token   
     })
-    return this.http.get(env.categoryUrls.deleteCategory + id, {headers, responseType: 'text' as 'json'}).pipe(
-      catchError(this.handleError)
-    )
+    return this.http.get(env.categoryUrls.deleteCategory + id, {headers, responseType: 'text' as 'json'})
   }
 
   
@@ -45,61 +42,21 @@ export class BackendService {
     let headers = new HttpHeaders({
       'Authorization' : "Bearer " + token   
     })
-    return this.http.post<string>(env.categoryUrls.addCategory, categoryData, {headers, responseType: 'text' as 'json'}).pipe(
-      // catchError(this.handleError)
-    )
+    return this.http.post<string>(env.categoryUrls.addCategory, categoryData, {headers, responseType: 'text' as 'json'})
   }
 
 
   placeOrder(orderRequest : any){
-    return this.http.post(env.orderUrls.placeOrder , orderRequest, { responseType : 'text' as 'json' }).pipe(
-      catchError(this.handleError)
-    )
+    return this.http.post(env.orderUrls.placeOrder , orderRequest, { responseType : 'text' as 'json' })
   }
 
   getOrders(username : any){
-    return this.http.get(env.orderUrls.getOrders + username).pipe(
-      catchError(this.handleError)
-    )
+    return this.http.get(env.orderUrls.getOrders + username)
   }
 
   cancelOrder(orderId : any){
-    return this.http.delete(env.orderUrls.deleteOrder + orderId, { responseType : 'text' as 'json' }).pipe(
-      catchError(this.handleError)
-    )
+    return this.http.delete(env.orderUrls.deleteOrder + orderId, { responseType : 'text' as 'json' })
   }
 
 
-
-
-  private handleError(error: HttpErrorResponse) {
-    let errorMessage = error.message;
-
-    if (error.error instanceof ErrorEvent) {
-      // Client-side error
-      errorMessage = `Client Error: ${error.error.message}`;
-    } else {
-      // Server-side error
-      switch (error.status) {
-        case 400:
-          errorMessage = 'Bad request!';
-          break;
-        case 401:
-          errorMessage = 'Unauthorized! Please login.';
-          break;
-        case 403:
-          errorMessage = 'Forbidden! You do not have access to these Services';
-          break;
-        case 404:
-          errorMessage = 'The Page or Service you want Does not Exist!';
-          break;
-        case 500:
-          errorMessage = 'Internal server error!';
-          break;
-      }
-    }
-
-    console.error(`API Error: ${errorMessage}`);
-    return throwError(() => new Error(errorMessage)); // Throw a user-friendly error
-  }
 }

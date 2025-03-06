@@ -17,9 +17,7 @@ export class ProductApiService {
       let headers = new HttpHeaders({
         'Authorization' : "Bearer " + token   
       })
-      return this.http.post<string>( env.productUrls.addNewProduct , productData, {headers, responseType: 'text' as 'json'}).pipe(
-        // catchError(this.handleError)
-      )
+      return this.http.post<string>( env.productUrls.addNewProduct , productData, {headers, responseType: 'text' as 'json'});
     }
   
     getTrendingProducts() : Observable<any> {
@@ -32,8 +30,7 @@ export class ProductApiService {
             }
             return product;
           });
-        }),
-        catchError(this.handleError)
+        })
       )
     }
   
@@ -47,8 +44,7 @@ export class ProductApiService {
             }
             return product;
           });
-        }),
-        catchError(this.handleError)
+        })
       )
     }
   
@@ -62,8 +58,7 @@ export class ProductApiService {
             }
             return product;
           });
-        }),
-        catchError(this.handleError)
+        })
       )
     }
   
@@ -78,8 +73,7 @@ export class ProductApiService {
             }
             return product;
           });
-        }),
-        catchError(this.handleError)
+        })
       )
     }
   
@@ -92,46 +86,12 @@ export class ProductApiService {
             product.imageData = this.utility.convertBase64ToBlobUrl(product.imageData, imageType);
           }
           return product;
-        }),
-        catchError(this.handleError)
+        })
       )
     }
   
     getProductImage(productId : string){
-      return this.http.get<any>(env.productUrls.productImage + productId, { responseType : 'text' as 'json' } ).pipe(
-        catchError(this.handleError)
-      )
+      return this.http.get<any>(env.productUrls.productImage + productId, { responseType : 'text' as 'json' })
     }
-
-    private handleError(error: HttpErrorResponse) {
-        let errorMessage = 'An unknown error occurred!';
-    
-        if (error.error instanceof ErrorEvent) {
-          // Client-side error
-          errorMessage = `Client Error: ${error.error.message}`;
-        } else {
-          // Server-side error
-          switch (error.status) {
-            case 400:
-              errorMessage = 'Bad request!';
-              break;
-            case 401:
-              errorMessage = 'Unauthorized! Please login.';
-              break;
-            case 403:
-              errorMessage = 'Forbidden! You do not have access to these Services';
-              break;
-            case 404:
-              errorMessage = 'The Page or Service you want Does not Exist!';
-              break;
-            case 500:
-              errorMessage = 'Internal server error!';
-              break;
-          }
-        }
-    
-        console.error(`API Error: ${errorMessage}`);
-        return throwError(() => new Error(errorMessage)); // Throw a user-friendly error
-      }
   
 }

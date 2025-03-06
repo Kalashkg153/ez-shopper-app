@@ -22,6 +22,7 @@ export class RegisterPageComponent {
   registerForm !: FormGroup;
   confirmPassword  = new FormControl('');
   passwordError : string = "";
+  isSigningUp : boolean = false;
   
     constructor(private fb : FormBuilder, private backend : BackendService, private userApiService : UserApiService,
       private router : Router, private message: ToastService){
@@ -41,17 +42,15 @@ export class RegisterPageComponent {
 
     userRegister(){
       if(this.registerForm.valid){
+        this.isSigningUp = true;
         this.userApiService.registerUser(this.registerForm.value).subscribe({
           next : (res) => {
-            if(res.includes("Created ")){
+            this.isSigningUp = false;
               this.message.SucessMessage(res);
               this.router.navigateByUrl("login");
-            }
-            else{
-              this.message.ErrorMessage(res);
-            }
           },
           error : (err) => {
+            this.isSigningUp = false;
             console.log(err);
           }
         })

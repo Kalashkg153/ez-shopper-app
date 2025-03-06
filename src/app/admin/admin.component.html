@@ -2,13 +2,13 @@
 <section class="admin-section">
     <div class="admin-tools d-flex justify-content-center mx-auto">
         <div class="d-flex w-25 flex-column">
-            <div class="admin-rights"><a routerLink="add-product">Add Product</a></div>
-            <div class="admin-rights"><a routerLink="add-category">Category</a></div>
+            <div class="admin-rights" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><a routerLink="add-product">Add Product</a></div>
+            <div class="admin-rights" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><a routerLink="add-category">Category</a></div>
             <div class="admin-rights">Users</div>
             <div class="admin-rights">Orders</div>
             <div class="admin-rights">Product</div>
         </div>
-        <div class="admin-rights-work-panel w-75">
+        <div class="admin-rights-work-panel border-top border-2 p-2 border-primary-subtle w-75">
             <router-outlet></router-outlet>
         </div>
     </div>

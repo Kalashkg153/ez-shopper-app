@@ -7,6 +7,7 @@ import { BackendService } from '../services/backend.service';
 import { CommonModule } from '@angular/common';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { ProductApiService } from '../services/product-api.service';
+import { UtilityService } from '../services/utility.service';
 
 @Component({
   selector: 'app-category',
@@ -17,7 +18,8 @@ import { ProductApiService } from '../services/product-api.service';
 })
 export class CategoryComponent {
 
-  constructor(private router : Router,private productApi : ProductApiService, private route : ActivatedRoute, private backend : BackendService){}
+  constructor(private router : Router,private productApi : ProductApiService, private utility : UtilityService,
+    private route : ActivatedRoute, private backend : BackendService){}
 
   categoryProducts : Product[] = [];
   categoryName : string = "";
@@ -33,8 +35,10 @@ export class CategoryComponent {
 
 
   getProducts(category : string){
+    this.utility.loaderSubject.next(true);
     this.productApi.getProductByCategory(category).subscribe({
       next : (res) => {
+        this.utility.loaderSubject.next(false);
         console.log(res);
         res.map(product => {
           let catProduct = new Product(product);
@@ -42,6 +46,7 @@ export class CategoryComponent {
         })
       },
       error : (err) => {
+        this.utility.loaderSubject.next(false);
         console.log(err);
       }
     })

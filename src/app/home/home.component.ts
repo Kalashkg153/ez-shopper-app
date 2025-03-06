@@ -51,7 +51,9 @@ export class HomeComponent {
     this.auth.user$.subscribe((user) => {
       this.userName = user?.username;
     })
-    this.cartService.updateCart(this.userName);
+
+    if(this.userName !== undefined)
+        this.cartService.updateCart(this.userName);
     this.getTrendingProducts();
     this.getLatestProducts();
   }

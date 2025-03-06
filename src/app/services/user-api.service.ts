@@ -16,27 +16,19 @@ export class UserApiService {
 
 
     loginUser(loginreq : any){
-        return this.http.post<any>(env.userUrls.login , loginreq).pipe(
-          catchError(this.handleError)
-        )
-      }
+        return this.http.post<any>(env.userUrls.login , loginreq)
+    }
     
     registerUser(registerData : any){
-      return this.http.post<string>(env.userUrls.register , registerData, { responseType : 'text' as 'json' }).pipe(
-        catchError(this.handleError)
-      )
+      return this.http.post<string>(env.userUrls.register , registerData, { responseType : 'text' as 'json' })
     }
   
     updateProfile(profileData : any, userId : any){
-      return this.http.post(env.userUrls.updateProfile + userId, profileData, { responseType : 'text' as 'json' }).pipe(
-        // catchError(this.handleError)
-      )
+      return this.http.post(env.userUrls.updateProfile + userId, profileData, { responseType : 'text' as 'json' })
     }
   
     updateUserProfilePassword(updatePasswordData : any, userId : any){
-      return this.http.post(env.userUrls.updatePassword + userId, updatePasswordData, { responseType : 'text' as 'json' }).pipe(
-        // catchError(this.handleError)
-      )
+      return this.http.post(env.userUrls.updatePassword + userId, updatePasswordData, { responseType : 'text' as 'json' })
     }
 
     getUserDetails(userName : any){
@@ -53,16 +45,13 @@ export class UserApiService {
             }
     
             return user;
-          }),
-          catchError(this.handleError)
+          })
         )
       }
 
 
       resetPassword(username: any){
-        return this.http.post(env.userUrls.resetPassword, username ,{responseType: 'text' as 'json'}).pipe(
-          catchError(this.handleError)
-        )
+        return this.http.post(env.userUrls.resetPassword, username ,{responseType: 'text' as 'json'});
       }
     
     
@@ -70,41 +59,9 @@ export class UserApiService {
     
         let params = new HttpParams().set("email", username);
     
-        return this.http.post(env.userUrls.sendPasswordResetLink, params ,{responseType: 'text' as 'json'}).pipe(
-          catchError(this.handleError)
-        )
+        return this.http.post(env.userUrls.sendPasswordResetLink, params ,{responseType: 'text' as 'json'});
       }
 
 
-    private handleError(error: HttpErrorResponse) {
-        let errorMessage = error.message;
     
-        if (error.error instanceof ErrorEvent) {
-          // Client-side error
-          errorMessage = `Client Error: ${error.error.message}`;
-        } else {
-          // Server-side error
-          switch (error.status) {
-            case 400:
-              errorMessage = 'Bad request!';
-              break;
-            case 401:
-              errorMessage = 'Unauthorized! Please login.';
-              break;
-            case 403:
-              errorMessage = 'Forbidden! You do not have access to these Services';
-              break;
-            case 404:
-              errorMessage = 'The Page or Service you want Does not Exist!';
-              break;
-            case 500:
-              errorMessage = 'Internal server error!';
-              break;
-          }
-        }
-    
-        console.error(`API Error: ${errorMessage}`);
-        return throwError(() => new Error(errorMessage)); // Throw a user-friendly error
-      }
-
 }
