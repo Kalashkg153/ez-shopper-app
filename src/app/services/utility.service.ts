@@ -22,7 +22,7 @@ export class UtilityService {
     if (base64.startsWith('iVBORw0KGg')) return 'image/png';
     if (base64.startsWith('R0lGODdh')) return 'image/gif';
     if (base64.startsWith('UklGR')) return 'image/webp';
-    return 'image/png'; // Default fallback
+    return 'image/png';
   }
 
 

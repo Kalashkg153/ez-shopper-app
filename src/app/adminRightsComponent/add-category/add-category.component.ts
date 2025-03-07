@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BackendService } from '../../services/backend.service';
 import { ToastService } from '../../services/toast.service';
 import { FormBuilder, FormGroup , FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import { SuccessResponse } from '../../models/successResponse';
 
 @Component({
   selector: 'app-add-category',
@@ -53,13 +54,13 @@ export class AddCategoryComponent {
   addCategory(){
     if(this.categoryForm.valid){
       this.backend.addNewCategory(this.categoryForm.value).subscribe({
-        next : (res : any) => {
-          this.message.SucessMessage(res);
+        next : (res : SuccessResponse) => {
+          this.message.SucessMessage(res.message);
           this.categoryForm.reset();
+          this.getCategories();
         },
         error : (err) => {
-          console.log(err);
-          this.message.ErrorMessage(err);
+          this.message.ErrorMessage(err.error);
         }
       })
     }
@@ -72,12 +73,16 @@ export class AddCategoryComponent {
   getCategories(){
     this.backend.getCategories().subscribe({
       next : (res) => {
-        console.log(res);
-        this.categories = res;
+        if(res == null){
+          this.message.InfoMessage("No Categories Found");
+        }
+        else{
+          this.categories = res;
+        }
+        
       },
       error : (err) => {
-        console.log(err)
-        this.message.ErrorMessage(err);
+        this.message.ErrorMessage(err.error);
       }
     })
   }
@@ -85,13 +90,13 @@ export class AddCategoryComponent {
 
   deleteCategory(categoryId : string){
     this.backend.deleteCategory(categoryId).subscribe({
-      next : (res : any) => {
-        this.message.SucessMessage(res);
+      next : (res : SuccessResponse) => {
+        this.message.SucessMessage(res.message);
         this.getCategories();
       },
       error : (err) => {
         console.log(err);
-        this.message.ErrorMessage(err);
+        this.message.ErrorMessage(err.error);
       }
     })
   }

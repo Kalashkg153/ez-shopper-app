@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { UtilityService } from "./utility.service";
 import { catchError, map, throwError } from "rxjs";
 import { environment as env } from "../../environments/environment";
+import { SuccessResponse } from "../models/successResponse";
 
 
 
@@ -20,15 +21,15 @@ export class UserApiService {
     }
     
     registerUser(registerData : any){
-      return this.http.post<string>(env.userUrls.register , registerData, { responseType : 'text' as 'json' })
+      return this.http.post<SuccessResponse>(env.userUrls.register , registerData,)
     }
   
     updateProfile(profileData : any, userId : any){
-      return this.http.post(env.userUrls.updateProfile + userId, profileData, { responseType : 'text' as 'json' })
+      return this.http.post<SuccessResponse>(env.userUrls.updateProfile + userId, profileData)
     }
   
     updateUserProfilePassword(updatePasswordData : any, userId : any){
-      return this.http.post(env.userUrls.updatePassword + userId, updatePasswordData, { responseType : 'text' as 'json' })
+      return this.http.post<SuccessResponse>(env.userUrls.updatePassword + userId, updatePasswordData)
     }
 
     getUserDetails(userName : any){
@@ -51,7 +52,7 @@ export class UserApiService {
 
 
       resetPassword(username: any){
-        return this.http.post(env.userUrls.resetPassword, username ,{responseType: 'text' as 'json'});
+        return this.http.post<SuccessResponse>(env.userUrls.resetPassword, username);
       }
     
     
@@ -59,7 +60,7 @@ export class UserApiService {
     
         let params = new HttpParams().set("email", username);
     
-        return this.http.post(env.userUrls.sendPasswordResetLink, params ,{responseType: 'text' as 'json'});
+        return this.http.post<SuccessResponse>(env.userUrls.sendPasswordResetLink, params);
       }
 
 

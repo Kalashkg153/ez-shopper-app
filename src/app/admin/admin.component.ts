@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -14,12 +15,23 @@ import { Router, RouterModule } from '@angular/router';
 export class AdminComponent {
 
 
-  constructor(private router : Router){}
+  constructor(private router : Router, private auth  : AuthService){}
 
   ngOnInit() : void {
-    alert("You must Logged in as a Administrator for these Services");
 
-    this.router.navigateByUrl("admin/add-product");    
+    let user;
+    this.auth.user$.subscribe((res) => {
+      user = res;
+    })
+
+    if(user){
+      alert("You must Logged in as a Administrator for these Services");
+      this.router.navigateByUrl("admin/add-product"); 
+    }
+    else{
+      alert("You must Login Before Proceeding");
+      this.router.navigateByUrl("");
+    }   
   }
   
 }

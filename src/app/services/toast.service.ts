@@ -54,10 +54,18 @@ SucessMessage(inmessage: string, duration?: number): void {
 }
 
   ErrorMessage(inmessage : string){
-    var notyf = new Notyf();
-    this.notyf.error({
+    this.notyf.open({
+      type : 'error',
       message: inmessage,
-      duration : 5000
+      dismissible: true
+    })
+  }
+
+  InfoMessage(inmessage : string){
+    this.notyf.open({
+      type : 'warning',
+      message : inmessage,
+      dismissible : true
     })
   }
 }

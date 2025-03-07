@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonSpinnerComponent } from '../button-spinner/button-spinner.component';
 import { UserApiService } from '../services/user-api.service';
+import { SuccessResponse } from '../models/successResponse';
 
 
 
@@ -44,14 +45,14 @@ export class RegisterPageComponent {
       if(this.registerForm.valid){
         this.isSigningUp = true;
         this.userApiService.registerUser(this.registerForm.value).subscribe({
-          next : (res) => {
+          next : (res : SuccessResponse) => {
             this.isSigningUp = false;
-              this.message.SucessMessage(res);
+              this.message.SucessMessage(res.message);
               this.router.navigateByUrl("login");
           },
           error : (err) => {
             this.isSigningUp = false;
-            console.log(err);
+            console.log(err.error);
           }
         })
       } 

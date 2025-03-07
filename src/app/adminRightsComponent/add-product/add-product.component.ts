@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BackendService } from '../../services/backend.service';
 import { ToastService } from '../../services/toast.service';
 import { ProductApiService } from '../../services/product-api.service';
+import { SuccessResponse } from '../../models/successResponse';
 
 @Component({
   selector: 'app-add-product',
@@ -49,19 +50,17 @@ export class AddProductComponent {
       }
 
       this.productApi.addNewProduct(this.productForm.value).subscribe({
-        next : (res : any) => {
-          this.message.SucessMessage(res);
+        next : (res : SuccessResponse) => {
+          this.message.SucessMessage(res.message);
           this.productForm.reset();
         },
         error : (err) => {
           console.log(err);
-          this.message.ErrorMessage(err);
+          this.message.ErrorMessage(err.error);
         }
       })
-
-      console.log('Form Submitted', this.productForm.value);
     } else {
-      console.log('Form is invalid');
+      this.productForm.markAllAsTouched();
     }
   }
 
@@ -88,11 +87,17 @@ export class AddProductComponent {
   getCategories(){
     this.backend.getCategories().subscribe({
       next : (res) => {
-        this.categories = res;
+        if(res == null){
+          this.message.InfoMessage("No Categories Found");
+        }
+        else{
+          this.categories = res;
+        }
+        
       },
       error : (err) => {
-        console.log(err);
+        this.message.ErrorMessage(err.error);
       }
-    });
+    })
   }
 }

@@ -3,6 +3,7 @@ import { BackendService } from '../services/backend.service';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'CategoryBar',
@@ -15,7 +16,7 @@ export class CategoryBarComponent {
 
   categories : any;
 
-  constructor(private backend : BackendService, private router : Router){
+  constructor(private backend : BackendService, private router : Router, private message : ToastService){
 
   }
 
@@ -25,12 +26,12 @@ export class CategoryBarComponent {
 
 
   getCategories(){
-    this.backend.getCategories().subscribe({
+    this.backend.getActiveCategories().subscribe({
       next : (res) => {
         this.categories = res;
       },
       error : (err) => {
-        console.log(err);
+        this.message.ErrorMessage(err.error);
       }
     });
   }

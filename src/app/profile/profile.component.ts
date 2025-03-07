@@ -7,6 +7,7 @@ import { CartService } from '../services/cart.service';
 import { ToastService } from '../services/toast.service';
 import { BackendService } from '../services/backend.service';
 import { UserApiService } from '../services/user-api.service';
+import { SuccessResponse } from '../models/successResponse';
 
 @Component({
   selector: 'app-profile',
@@ -64,7 +65,7 @@ export class ProfileComponent {
         this.userId = res.id;
       },
       error : (err) => {
-        console.log(err);
+        this.message.ErrorMessage(err.error);
       }
     })
   }
@@ -73,13 +74,13 @@ export class ProfileComponent {
     console.log(this.profileForm.valid);
     if (this.profileForm.valid) {
       this.userApiService.updateProfile(this.profileForm.value, this.userId ).subscribe({
-        next : (res : any) => {
+        next : (res : SuccessResponse) => {
           console.log(res);
-          this.message.SucessMessage(res);
+          this.message.SucessMessage(res.message);
           this.getUserDetails(this.username);
         },
         error : (err) => {
-          console.log(err);
+          this.message.ErrorMessage(err.error);
         }
       })
     }
@@ -91,13 +92,13 @@ export class ProfileComponent {
   onPasswordFormSubmit() : void {
     if (this.updatePasswordForm.valid) {
       this.userApiService.updateUserProfilePassword(this.updatePasswordForm.value, this.userId ).subscribe({
-        next : (res : any) => {
+        next : (res : SuccessResponse) => {
           console.log(res);
-          this.message.SucessMessage(res);
+          this.message.SucessMessage(res.message);
           this.getUserDetails(this.username);
         },
         error : (err) => {
-          console.log(err);
+          this.message.ErrorMessage(err.error)
         }
       })
     }

@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { environment as env } from '../../environments/environment';
+import { SuccessResponse } from '../models/successResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class CartApiService {
 
   
     addItemToCart(cartReq : any){
-      return this.http.post(env.cartUrls.addItemsToCart, cartReq)
+      return this.http.post<SuccessResponse>(env.cartUrls.addItemsToCart, cartReq)
     }
   
     decreaseQuantityFromCart(cartReq : any){

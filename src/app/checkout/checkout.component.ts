@@ -8,6 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, RouterModule } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { UserApiService } from '../services/user-api.service';
+import { SuccessResponse } from '../models/successResponse';
 
 @Component({
   selector: 'app-checkout',
@@ -87,12 +88,12 @@ export class CheckoutComponent {
 
     console.log(this.orderForm.value);
     this.backend.placeOrder(this.orderForm.value).subscribe({
-      next : (res  : any) => {
-        this.message.SucessMessage(res, 18000);
+      next : (res  : SuccessResponse) => {
+        this.message.SucessMessage(res.message, 18000);
         this.openVerticallyCentered(this.contentTemplate);
       },
       error : (err) => {
-        this.message.ErrorMessage(err);
+        this.message.ErrorMessage(err.error);
       }
     })
   }

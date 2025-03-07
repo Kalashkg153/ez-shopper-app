@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { BackendService } from '../services/backend.service';
 import { ToastService } from '../services/toast.service';
 import { UserApiService } from '../services/user-api.service';
+import { SuccessResponse } from '../models/successResponse';
 
 @Component({
   selector: 'app-forgot-password',
@@ -29,12 +30,11 @@ export class ForgotPasswordComponent {
     passwordResetLink(){
       if(this.userNameForm.valid){
         this.userApiService.sendPasswordLink(this.userNameForm.controls['username'].value).subscribe({
-          next : (res : any) => {
-            this.message.SucessMessage(res);
-            this.responseMessage = res;
+          next : (res : SuccessResponse) => {
+            this.responseMessage = res.message;
           },
           error : (err) => {
-            this.message.ErrorMessage(err);
+            this.message.ErrorMessage(err.error);
           }
         })
       }

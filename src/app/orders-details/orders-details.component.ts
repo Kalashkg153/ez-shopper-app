@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BackendService } from '../services/backend.service';
 import { AuthService } from '../services/auth.service';
 import { ToastService } from '../services/toast.service';
+import { SuccessResponse } from '../models/successResponse';
 
 @Component({
   selector: 'app-orders-details',
@@ -27,11 +28,13 @@ export class OrdersDetailsComponent {
 
     this.backend.getOrders(this.username).subscribe({
       next : (res : any) => {
-        console.log(res);
+        if(res == null){
+          this.message.InfoMessage("You do not have any Orders")
+        }
         this.orders = res;
       },
       error : (err) => {
-        console.log(err);
+        this.message.ErrorMessage(err.error);
       }
     })
   }
@@ -40,11 +43,11 @@ export class OrdersDetailsComponent {
 
   CancelOrder(orderId : any){
     this.backend.cancelOrder(orderId).subscribe({
-      next : (res : any) => {
-        this.message.SucessMessage(res + orderId);
+      next : (res : SuccessResponse) => {
+        this.message.SucessMessage(res.message);
       },
       error : (err) => {
-        console.log(err);
+        console.log(err.error);
       }
     })
   } 

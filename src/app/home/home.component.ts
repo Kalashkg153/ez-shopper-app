@@ -12,6 +12,8 @@ import { UtilityService } from '../services/utility.service';
 import { AuthService } from '../services/auth.service';
 import { CartService } from '../services/cart.service';
 import { ProductApiService } from '../services/product-api.service';
+import { ToastService } from '../services/toast.service';
+import { ProductResponse } from '../models/productResponse';
 
 @Component({
   selector: 'app-home',
@@ -44,7 +46,7 @@ export class HomeComponent {
   date: Date | undefined;
 
   constructor(private backend : BackendService, private productApi : ProductApiService, private utility : UtilityService,
-    private cartService : CartService, private auth : AuthService){
+    private cartService : CartService, private auth : AuthService, private message : ToastService){
   }
 
   ngOnInit() : void{
@@ -86,7 +88,7 @@ export class HomeComponent {
   getTrendingProducts(){
     this.utility.loaderSubject.next(true);
     this.productApi.getTrendingProducts().subscribe({
-      next : (res : any[]) => {
+      next : (res : ProductResponse[]) => {
         this.utility.loaderSubject.next(false);
         console.log(res);
         res.map(product => {
@@ -95,7 +97,7 @@ export class HomeComponent {
         })
       },
       error : (err) => {
-        console.log(err);
+        this.message.ErrorMessage(err.error);
         this.utility.loaderSubject.next(false);
       }
     });
@@ -117,14 +119,16 @@ export class HomeComponent {
   getLatestProducts(){
     this.utility.loaderSubject.next(true);
     this.productApi.getLatestProducts().subscribe({
-      next : (res : any[]) => {
+      next : (res : ProductResponse[]) => {
+        this.utility.loaderSubject.next(false);
         res.map(product => {
           let newProduct = new Product(product);
           this.latestProducts.push(newProduct);
         })
       },
       error : (err) => {
-        console.log(err);
+        this.message.ErrorMessage(err.error);
+        this.utility.loaderSubject.next(false);
       }
     });
   }

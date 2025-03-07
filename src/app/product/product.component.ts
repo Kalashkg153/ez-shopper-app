@@ -12,6 +12,7 @@ import { CartService } from '../services/cart.service';
 import { ProductApiService } from '../services/product-api.service';
 import { ButtonSpinnerComponent } from '../button-spinner/button-spinner.component';
 import { CartApiService } from '../services/cart-api.service';
+import { SuccessResponse } from '../models/successResponse';
 
 @Component({
   selector: 'app-product',
@@ -42,7 +43,7 @@ export class ProductComponent {
       price : 0.0
   }
 
-  constructor(private backend : BackendService, private productApi : ProductApiService, private authService : AuthService, private message : ToastService,
+  constructor(private productApi : ProductApiService, private authService : AuthService, private message : ToastService,
     private router : Router, private cartService : CartService, private cartApiService : CartApiService, private route : ActivatedRoute){}
   
   ngOnInit() : void {
@@ -81,19 +82,14 @@ export class ProductComponent {
     this.cartItem.price = this.product.productDiscountedPrice;
 
     this.cartApiService.addItemToCart(this.cartItem).subscribe({
-      next : (res) => {
+      next : (res : SuccessResponse) => {
         this.isLoading = false;
-        if(res){
-          this.message.SucessMessage("Great choice! Your item has been added to the Cart");
+          this.message.SucessMessage(res.message);
           this.cartService.updateCart(this.cartItem.userName);
-        }
-        else{
-          this.message.ErrorMessage("Something went wrong! Couldn't add the item to your Cart")
-        }
       },  
       error : (err) => {
         this.isLoading = false;
-        console.log(err);
+        console.log(err.error);
       }
     })
 

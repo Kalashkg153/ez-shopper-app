@@ -33,6 +33,7 @@ export const environment = {
 
     categoryUrls : {
         activeCategories : BASE_URL + "activeCategories",
+        categories : BASE_URL + "admin/categories",
         deleteCategory : BASE_URL + "admin/deleteCategory/",
         addCategory : BASE_URL + "admin/saveCategory"
     },

@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { BackendService } from '../services/backend.service';
 import { ToastService } from '../services/toast.service';
 import { UserApiService } from '../services/user-api.service';
+import { SuccessResponse } from '../models/successResponse';
 
 @Component({
   selector: 'app-reset-password',
@@ -42,12 +43,10 @@ export class ResetPasswordComponent {
 
         if(this.resetPasswordForm.valid){
 
-          console.log(this.resetPasswordForm.value);
-
           this.userApiService.resetPassword(this.resetPasswordForm.value).subscribe({
-            next : (res : any) => {
-              this.message.SucessMessage(res);
-              this.responseMessage = res;
+            next : (res : SuccessResponse) => {
+              this.message.SucessMessage(res.message);
+              this.responseMessage = res.message;
             },
             error : (err) => {
               this.message.ErrorMessage(err);

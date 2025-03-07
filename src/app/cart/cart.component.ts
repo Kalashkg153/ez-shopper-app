@@ -6,6 +6,7 @@ import { ToastService } from '../services/toast.service';
 import { forkJoin, map, switchMap } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { CartApiService } from '../services/cart-api.service';
+import { SuccessResponse } from '../models/successResponse';
 
 @Component({
   selector: 'app-cart',
@@ -48,13 +49,10 @@ export class CartComponent implements OnInit {
     this.cartItem.productId = productId;
     this.cartApiService.decreaseQuantityFromCart(this.cartItem).subscribe({
       next : (res) => {
-        console.log(res);
-        if(res){
-          this.cartService.updateCart(this.username);
-        }
+        this.cartService.updateCart(this.username);
       },
       error : (err) => {
-        console.log(err);
+        console.log(err.error);
       }
     })
   }
@@ -63,13 +61,12 @@ export class CartComponent implements OnInit {
     this.cartItem.productId = productId;
     this.cartApiService.removeItemFromCart(this.cartItem).subscribe({
       next : (res) => {
-        console.log(res);
         if(res){
           this.cartService.updateCart(this.username);
         }
       },
       error : (err) => {
-        console.log(err);
+        console.log(err.error);
       }
     })
   }
@@ -77,14 +74,12 @@ export class CartComponent implements OnInit {
   addItemToCart(productId : any){
     this.cartItem.productId = productId;
     this.cartApiService.addItemToCart(this.cartItem).subscribe({
-      next : (res) => {
-        console.log(res);
-        if(res){
+      next : (res : SuccessResponse) => {
+        // this.message.SucessMessage(res.message);
           this.cartService.updateCart(this.username);
-        }
       },
       error : (err) => {
-        console.log(err);
+        console.log(err.error);
       }
     })
   }

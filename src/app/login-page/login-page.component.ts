@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ButtonSpinnerComponent } from '../button-spinner/button-spinner.component';
 import { UserApiService } from '../services/user-api.service';
+import { User } from '../models/user';
+import { LoginResponse } from '../models/loginResponse';
 
 @Component({
   selector: 'app-login-page',
@@ -39,10 +41,10 @@ export class LoginPageComponent {
     if(this.loginForm.valid){
       this.isLoading = true;
       this.userApiService.loginUser(this.loginForm.value).subscribe({
-        next : (res) => {
+        next : (res : LoginResponse) => {
           console.log(res);
           this.isLoading = false;
-          if(res.token != null){
+          if(res.token != null && res.token !== ""){
             this.authService.setLoginDetails(res);
             this.message.SucessMessage(res.message);
             this.router.navigateByUrl("");
@@ -53,7 +55,6 @@ export class LoginPageComponent {
         },
         error : (err) => {
           this.isLoading = false;
-          console.log(err);
           this.message.ErrorMessage(err.error);
         }
       })
