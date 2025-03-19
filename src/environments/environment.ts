@@ -28,7 +28,8 @@ export const environment = {
         updatePassword : BASE_URL + "auth/update-password/",
         userDetails : BASE_URL + "user/",
         resetPassword : BASE_URL + "reset-password",
-        sendPasswordResetLink : BASE_URL + "forgetPasswordLink"
+        sendPasswordResetLink : BASE_URL + "forgetPasswordLink",
+        getAllUsers : BASE_URL + "admin/users"
     },
 
     categoryUrls : {
@@ -41,7 +42,9 @@ export const environment = {
     orderUrls : {
         placeOrder : BASE_URL + "placeOrder",
         getOrders :  BASE_URL + "user/getOrders/",
-        deleteOrder : BASE_URL + "order/"
+        deleteOrder : BASE_URL + "order/",
+        getAllOrders : BASE_URL + "admin/getAllOrders",
+        updateOrderStatus : BASE_URL + "admin/updateOrderStatus/"
     },
 
 

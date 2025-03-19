@@ -1,0 +1,19 @@
+<div class="container">
+    <h2>Registered Users</h2>
+    <div class="user-grid">
+        @for(user of users; track user.id){
+            <div class="user-card">
+                <h3>{{user.fullName}}</h3>
+                <p><strong>Email  :</strong>{{user.email}}</p>
+                <p><strong>Contact  :</strong>{{user.contact}}</p>
+                <p><strong>Address  :</strong>{{user.address}}</p>
+                <p><strong>Role  :</strong>{{user.role}}</p>
+                <p><strong>PinCode  : </strong>{{user.pincode}}</p>
+                <div class="btn-container">
+                    <button class="btn edit-btn">Modify</button>
+                    <button class="btn delete-btn">Delete</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { CartService } from './services/cart.service';
@@ -18,7 +18,8 @@ export class AppComponent {
 
   isLoading : boolean = false;
 
-  constructor(private cartService : CartService, private auth : AuthService, private utility : UtilityService ){
+  constructor(private cartService : CartService, private auth : AuthService, private cd: ChangeDetectorRef,
+    private utility : UtilityService ){
 
   }
 
@@ -26,6 +27,7 @@ export class AppComponent {
     let username;
     this.utility.loader$.subscribe((value) => {
       this.isLoading = value;
+      this.cd.detectChanges();
     })
     this.auth.user$.subscribe((user) => {
       username = user?.username;

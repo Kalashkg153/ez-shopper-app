@@ -83,5 +83,22 @@ export class BackendService {
     return this.http.delete<SuccessResponse>(env.orderUrls.deleteOrder + orderId)
   }
 
+  getAllOrder(){
+    let token = sessionStorage.getItem("token");
+    let headers = new HttpHeaders({
+      'Authorization' : "Bearer " + token   
+    })
+    return this.http.get(env.orderUrls.getAllOrders, {headers});
+  }
+
+  updateOrderStatus(orderId : any, orderStatus : any){
+    let token = sessionStorage.getItem("token");
+    let headers = new HttpHeaders({
+      'Authorization' : "Bearer " + token   
+    })
+    let params = new HttpParams().set("OrderStatus", orderStatus);
+    this.http.post(env.orderUrls.updateOrderStatus + orderId, params, {headers});
+  }
+
 
 }

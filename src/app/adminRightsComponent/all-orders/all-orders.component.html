@@ -1,0 +1,55 @@
+<div class="container">
+    <h2>All Live Orders</h2>
+    <div class="order-grid">
+        @for(order of orders; track order.id){
+            <div class="order-card">
+                <h3>{{order.id}}</h3>
+                <p><strong>User Id  :</strong>{{order.userId}}</p>
+                <strong>Products Ids</strong>
+                @for(productid of order.productIds; track productid){
+                    <div>
+                        <p>{{productid}}</p>
+                    </div>
+                }
+                <p><strong>Total Amount  :</strong>{{order.totalPrice}}</p>
+                <p><strong>Delivery Address  :</strong>{{order.deliveryAddress}}</p>
+                <p><strong>Pincode  :</strong>{{order.pincode}}</p>
+                <p><strong>Order Status  : </strong>{{order.orderStatus}}</p>
+                <p><strong>Ordered Date : </strong>{{order.orderedDate}}</p>
+                <p><strong>Mode of Payment : </strong>{{order.paymentType}}</p>
+               
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Order Status</label>
+                    <select type="text" class="form-control" formControl="UpdatedOrderStatus">
+                        <option value="">-Select-</option>
+                        <option value="pending">Pending</option>
+                        <option value="awaiting-payment">Awaiting Payment</option>
+                        <option value="payment-failed">Payment Failed</option>
+                        <option value="processing">Processing</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="packing">Packing</option>
+                        <option value="shipped">Shipped</option>
+                        <option value="out-for-delivery">Out for Delivery</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="on-hold">On Hold</option>
+                        <option value="partially-shipped">Partially Shipped</option>
+                        <option value="delayed">Delayed</option>
+                        <option value="address-issue">Address Issue</option>
+                        <option value="cancelled">Cancelled</option>
+                        <option value="refunded">Refunded</option>
+                        <option value="returned">Returned</option>
+                        <option value="return-initiated">Return Initiated</option>
+                        <option value="return-completed">Return Completed</option>
+                        <option value="failed">Failed</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+
+                <div class="btn-container">
+                    <button (click)="UpdateOrderStatus(order.id)" class="btn edit-btn">Update Order Status</button>
+                    <button class="btn delete-btn">Cancel Order</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

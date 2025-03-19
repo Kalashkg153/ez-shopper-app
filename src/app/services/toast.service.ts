@@ -10,7 +10,6 @@ export class ToastService {
 
   constructor() { 
     this.notyf = new Notyf({
-      duration: 5000,
       position: {
         x: 'right',
         y: 'bottom',
@@ -27,7 +26,6 @@ export class ToastService {
         {
           type: 'error',
           background: 'indianred',
-          duration: 4000,
           dismissible: true
         },
         {
@@ -56,6 +54,7 @@ SucessMessage(inmessage: string, duration?: number): void {
   ErrorMessage(inmessage : string){
     this.notyf.open({
       type : 'error',
+      duration : 4000,
       message: inmessage,
       dismissible: true
     })

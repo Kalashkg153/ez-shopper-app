@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { CategoryComponent } from './category/category.component';
-import { ShopPageComponent } from './shop-page/shop-page.component';
 import { ProductComponent } from './product/product.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
@@ -17,6 +16,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ProfileComponent } from './profile/profile.component';
 import { OrdersDetailsComponent } from './orders-details/orders-details.component';
+import { UsersComponent } from './adminRightsComponent/users/users.component';
+import { AllOrdersComponent } from './adminRightsComponent/all-orders/all-orders.component';
 
 export const routes: Routes = [
     {
@@ -24,9 +25,6 @@ export const routes: Routes = [
     },
     {
         path : "profile/:username" , component : ProfileComponent
-    },
-    {
-        path : "shop" , component : ShopPageComponent
     },
     {
         path : "login" , component : LoginPageComponent
@@ -42,6 +40,12 @@ export const routes: Routes = [
             },
             {
                 path : "add-category", component : AddCategoryComponent
+            },
+            {
+                path : "users" , component : UsersComponent
+            },
+            {
+                path : "orders", component : AllOrdersComponent
             }
         ]
     },

@@ -26,6 +26,25 @@ export class OrdersDetailsComponent {
       this.username = res?.username;
     })
 
+    this.fetchOrders();
+  }
+
+
+
+  CancelOrder(orderId : any){
+    this.backend.cancelOrder(orderId).subscribe({
+      next : (res : SuccessResponse) => {
+        this.message.SucessMessage(res.message);
+        this.fetchOrders();
+      },
+      error : (err) => {
+        console.log(err.error);
+      }
+    })
+  } 
+
+
+  fetchOrders(){
     this.backend.getOrders(this.username).subscribe({
       next : (res : any) => {
         if(res == null){
@@ -38,17 +57,4 @@ export class OrdersDetailsComponent {
       }
     })
   }
-
-
-
-  CancelOrder(orderId : any){
-    this.backend.cancelOrder(orderId).subscribe({
-      next : (res : SuccessResponse) => {
-        this.message.SucessMessage(res.message);
-      },
-      error : (err) => {
-        console.log(err.error);
-      }
-    })
-  } 
 }

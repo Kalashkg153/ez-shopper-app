@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { UtilityService } from "./utility.service";
 import { catchError, map, throwError } from "rxjs";
@@ -64,5 +64,12 @@ export class UserApiService {
       }
 
 
+      getAllUsers(){
+        let token = sessionStorage.getItem("token");
+        let headers = new HttpHeaders({
+          'Authorization' : "Bearer " + token   
+        })
+        return this.http.get<any[]>(env.userUrls.getAllUsers, {headers});
+      }
     
 }

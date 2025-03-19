@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-contact',
@@ -11,8 +12,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class ContactComponent {
 
+  constructor(private message : ToastService){
+
+  }
 
   submitForm(){
-
+    
+    this.message.SucessMessage("Message Sent", 3000);
   }
 }

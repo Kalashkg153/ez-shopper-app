@@ -46,7 +46,7 @@ export class LoginPageComponent {
           this.isLoading = false;
           if(res.token != null && res.token !== ""){
             this.authService.setLoginDetails(res);
-            this.message.SucessMessage(res.message);
+            this.message.SucessMessage(res.message, 2000);
             this.router.navigateByUrl("");
           }
           else{

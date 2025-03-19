@@ -52,7 +52,7 @@ export class RegisterPageComponent {
           },
           error : (err) => {
             this.isSigningUp = false;
-            console.log(err.error);
+            this.message.ErrorMessage(err.error);
           }
         })
       } 

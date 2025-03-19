@@ -105,6 +105,6 @@
 	</div>
 	<div class="modal-footer d-flex justify-content-evenly">
 		<button class="btn btn-primary"><a  routerLink="">Go o Home Page</a></button>
-        <button class="btn btn-outline-dark"><a  routerLink="/my-orders">View Orders</a></button>
+        <button class="btn btn-outline-dark"><a  [routerLink]="['/my-orders', userDetails.email]">View Orders</a></button>
 	</div>
 </ng-template>

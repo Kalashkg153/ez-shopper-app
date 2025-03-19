@@ -7,23 +7,23 @@
         <div class="text-center">
           <h4>Send Us a Message</h4>
         </div>
-        <form (ngSubmit)="submitForm()">
+        <form>
           <div class="mb-3">
             <label for="name" class="form-label">Your Name</label>
-            <input type="text" class="form-control" id="name"  name="name" placeholder="" required>
+            <input type="text" class="form-control" id="name" placeholder="" required>
           </div>
   
           <div class="mb-3">
             <label for="email" class="form-label">Email Address</label>
-            <input type="email" class="form-control" id="email"  name="email" placeholder="example@email" required>
+            <input type="email" class="form-control" id="email" placeholder="example@email" required>
           </div>
   
           <div class="mb-3">
             <label for="message" class="form-label">Message</label>
-            <textarea class="form-control" id="message" rows="7" name="message" required></textarea>
+            <textarea class="form-control" id="message" rows="7" required></textarea>
           </div>
   
-          <button type="submit" class="btn btn-primary">Send Message</button>
+          <button type="button" (click)="submitForm()" class="btn btn-primary">Send Message</button>
         </form>
       </div>
   
